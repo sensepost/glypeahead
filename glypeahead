@@ -1,0 +1,37 @@
+#!/usr/bin/php
+<?php
+/*
+ * GlypeAhead
+ * Junaid Loonat (junaid@sensepost.com)
+ * Port scanning through glype proxies (which have not been heavily themed / modified)
+ * 
+ * 13 April 2010
+ */
+
+// {{{ library includes
+define('GLYPEAHEAD_LIB_DIR', dirname(__FILE__) . DIRECTORY_SEPARATOR . 'library' . DIRECTORY_SEPARATOR);
+require_once GLYPEAHEAD_LIB_DIR . 'GlypeAhead.php';
+require_once GLYPEAHEAD_LIB_DIR . 'GAProxy.php';
+require_once GLYPEAHEAD_LIB_DIR . 'GATarget.php';
+require_once GLYPEAHEAD_LIB_DIR . 'GACurl.php';
+// }}}
+
+// {{{
+GlypeAhead::displayHeader();
+if (function_exists('curl_init'))
+{
+	if (isset($_SERVER['argv'][1]) && file_exists($_SERVER['argv'][1]))
+	{
+		$glype = new GlypeAhead();
+		$glype->run($_SERVER['argv'][1]);
+	} else {
+		GlypeAhead::displayHelp();
+		GlypeAhead::fatal('Configuration file was not specified');
+	}
+} else {
+	GlypeAhead::fatal('PHP was not compiled with cURL');
+}
+GlypeAhead::display();
+// }}}
+
+

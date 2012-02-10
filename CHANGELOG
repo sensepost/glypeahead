@@ -1,0 +1,38 @@
+# GlypeAhead Changelog (and other notes)
+
+GlypeAhead 1.1 [2010-04-13]			(Initial Release)
+
+o [Banner Grabbing] If the response starts with a tag (<), then the
+  (assumed) webpage is parsed for its TITLE which will then serve as
+  the banner for the service. Otherwise, a truncated version of the
+  response is used.
+  
+o [HTTPS Services] Although the port status will be accurately
+  determined as either OPEN or CLOSE, it must be noted that banners from
+  HTTPS services will vary depending on the Glype configuration,
+  targetted HTTPS daemon and / or the port currently being scanned.
+  The port however, will still be accurately determined to be either
+  - [Glype Configuration]
+    Glype is often configured to inform the user that all HTTPS
+    requests / responses can still be intercepted.
+    This is often when the Glype proxy is running on HTTP, and thus
+    all traffic between the client and the proxy will remain unencrypted.
+  - [Targetted HTTPS Daemon]
+    Upon receiving an HTTP request, many HTTPS daemons will respond
+    appropriately by indicating that an HTTPS connection should be
+    established instead of HTTP. This behaviour is not always the case.
+  - [Port]
+    In general, when constructing a request to deliver to the proxy,
+    GlypeAhead indicates to the proxy that a HTTP connection should be
+    performed / expected.
+    When constructing a request to port 443 (a known HTTPS port) however,
+    GlypeAhead informs the proxy that a HTTPS connection should be
+    performed / expected.
+   
+o [Error Message Identification] Glype proxies which hide error messages,
+  or use custom error messages, cannot be used with GlypeAhead.
+  GlypeAhead relies on known / default error messages in order to
+  'understand' why the requested page could not be displayed.
+  
+o [Proxy Cycling] Specified proxies are used in round-robin style for
+  each individual portscan.
